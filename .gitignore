@@ -1,0 +1,6 @@
+__pycache__
+.virtual_env
+.env
+*.sqlite3
+# to remove when completed
+auth_api
