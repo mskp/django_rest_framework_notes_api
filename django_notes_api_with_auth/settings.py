@@ -10,8 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
-from pathlib import Path
-
+from pathlib import Path, PurePath
+import os
+import dotenv
+dotenv.load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -38,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    # 'auth_api',
     'notes_api'
 ]
 
@@ -75,11 +76,14 @@ WSGI_APPLICATION = 'django_notes_api_with_auth.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "django_notes_db",    # Default database name
+        "USER": "postgres",    # Default superuser name
+        "PASSWORD": os.environ.get('DATABASE_PASSWORD'),    # Password for the superuser
+        "HOST": "localhost",   # Database host (localhost for local installations)
+        "PORT": "5432",        # Default PostgreSQL port
     }
 }
 

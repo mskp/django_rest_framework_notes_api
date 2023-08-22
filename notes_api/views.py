@@ -5,11 +5,10 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 
-# This view handles fetching and creating notes
 @api_view(['GET', 'POST', 'DELETE'])
 def note_view(req) -> Response:
     try:
-        notes = Note.objects.all()  # To change
+        notes = Note.objects.all()
         match req.method:
             case 'GET':
                 # fetch the data
@@ -29,12 +28,12 @@ def note_view(req) -> Response:
                     return Response(serializer.data, status=status.HTTP_201_CREATED)
                 else:
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-                
+
             case 'DELETE':
                 # delete all notes
                 notes.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
-            
+
             case '_':
                 return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
@@ -71,7 +70,7 @@ def note_detail_view(req, note_id: int) -> Response:
                 # delete the note
                 note.delete()
                 return Response(status=status.HTTP_204_NO_CONTENT)
-            
+
             case '_':
                 return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
