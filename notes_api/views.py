@@ -57,9 +57,9 @@ def note_detail_view(req, note_id: int) -> Response:
             case 'PUT':
                 # update the note
                 title = req.data.get('title')
-                description = req.data.get('description')
+                content = req.data.get('content')
                 serializer = NoteSerializer(
-                    note, data={'title': title, 'description': description})
+                    note, data={'title': title, 'content': content})
 
                 if serializer.is_valid():
                     serializer.save()
